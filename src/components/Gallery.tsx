@@ -1,6 +1,7 @@
 import { useMemo } from "react";
+import type { EmbedOptions } from "vega-embed";
 import { ChartCard, Chart, useContainerWidth } from "./ChartCard";
-import { barSpec, brushSpec, donutSpec, facetSpec, lineSpec, scatterSpec } from "../specs";
+import { barSpec, brushSpec, canvasScatterSpec, donutSpec, facetSpec, lineSpec, scatterSpec } from "../specs";
 
 function FacetCard() {
   const [ref, width] = useContainerWidth<HTMLDivElement>(16);
@@ -49,6 +50,28 @@ function BrushCard() {
   );
 }
 
+const CANVAS: EmbedOptions = { renderer: "canvas" };
+
+function CanvasCard() {
+  const [ref, width] = useContainerWidth<HTMLDivElement>(16);
+  const spec = useMemo(() => canvasScatterSpec(Math.max(200, width - 64)), [width]);
+  return (
+    <figure className="card card--wide">
+      <figcaption>
+        <span className="card__kicker">Vega-Lite, canvas renderer</span>
+        <h3>4,000 sessions: time on site against scroll depth</h3>
+      </figcaption>
+      <div ref={ref}>
+        {width > 0 && <Chart spec={spec} options={CANVAS} label="Dense scatter of sessions drawn on canvas" />}
+      </div>
+      <p className="card__note">
+        Drawn on canvas, which can&rsquo;t read CSS variables. The provider only ever receives resolved values, so this chart
+        follows the tokens like the SVG charts do.
+      </p>
+    </figure>
+  );
+}
+
 export function Gallery() {
   return (
     <div className="gallery">
@@ -58,6 +81,7 @@ export function Gallery() {
       <DonutCard />
       <BrushCard />
       <FacetCard />
+      <CanvasCard />
     </div>
   );
 }

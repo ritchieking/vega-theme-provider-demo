@@ -21,11 +21,12 @@ export function buildJsx(o: { mode: string; nested: boolean; inherit: boolean })
     `<VegaThemeProvider theme={theme} variant="${o.mode}">`,
     `  <VegaEmbed spec={barSpec} />`,
     `  <VegaEmbed spec={lineSpec} />`,
+    `  <VegaEmbed spec={sessionsSpec} options={{ renderer: "canvas" }} />`,
   ];
   if (o.nested) {
     lines.push(
       ``,
-      o.inherit ? `  {/* merges on top of the page theme */}` : `  {/* starts from a clean slate: parent theme and variant ignored */}`,
+      o.inherit ? `  {/* merges on top of the page theme */}` : `  {/* starts from a clean slate: parent theme ignored */}`,
       o.inherit ? `  <VegaThemeProvider theme={highlightTheme}>` : `  <VegaThemeProvider theme={highlightTheme} inherit={false}>`,
       `    <VegaEmbed spec={nestedBarSpec} />`,
       `  </VegaThemeProvider>`,

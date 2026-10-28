@@ -60,3 +60,30 @@ export const daily = (() => {
   }
   return rows;
 })();
+
+/** 4,000 sessions across three devices: minutes on site and scroll depth (synthetic). */
+export const sessions = (() => {
+  const rand = mulberry32(99);
+  const normal = () => Math.sqrt(-2 * Math.log(rand() || 1e-9)) * Math.cos(2 * Math.PI * rand());
+  const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+  const devices = [
+    { device: "Desktop", n: 1800, logMinutes: 1.5, halfDepthAt: 3.2 },
+    { device: "Mobile", n: 1700, logMinutes: 0.9, halfDepthAt: 1.6 },
+    { device: "Tablet", n: 500, logMinutes: 1.2, halfDepthAt: 2.4 },
+  ];
+  const rows: { device: string; minutes: number; depth: number }[] = [];
+  for (const d of devices) {
+    for (let i = 0; i < d.n; i++) {
+      const minutes = clamp(Math.exp(d.logMinutes + normal() * 0.6), 0.5, 40);
+      const expected = 100 * (1 - Math.pow(0.5, minutes / d.halfDepthAt));
+      const depth = clamp(expected + normal() * 11, 0, 100);
+      rows.push({ device: d.device, minutes: Math.round(minutes * 100) / 100, depth: Math.round(depth * 10) / 10 });
+    }
+  }
+  // Shuffle so no device is always drawn on top of the others.
+  for (let i = rows.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [rows[i], rows[j]] = [rows[j], rows[i]];
+  }
+  return rows;
+})();

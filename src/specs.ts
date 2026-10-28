@@ -1,5 +1,5 @@
 import type { VisualizationSpec } from "vega-embed";
-import { cars, daily, penguins, weekly } from "./data";
+import { cars, daily, penguins, sessions, weekly } from "./data";
 
 /**
  * None of these specs set a color, font or font size. Everything visual comes
@@ -239,3 +239,17 @@ export const nestedLineSpec = {
     },
   ],
 } as VisualizationSpec;
+
+/** Dense scatter drawn with the canvas renderer. Like the others, it sets no colors or fonts. */
+export const canvasScatterSpec = (width: number): VisualizationSpec => ({
+  $schema: VL,
+  data: { values: sessions },
+  width,
+  height: 300,
+  mark: { type: "circle", size: 14, opacity: 0.5, strokeWidth: 0 },
+  encoding: {
+    x: { field: "minutes", type: "quantitative", title: "Minutes on site", scale: { type: "log", domain: [0.5, 40] } },
+    y: { field: "depth", type: "quantitative", title: "Scroll depth (%)", scale: { domain: [0, 100] } },
+    color: { field: "device", type: "nominal", title: null },
+  },
+});
