@@ -10,8 +10,11 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.2.5",
     "@codemirror/lang-json": "^6.0.2",
     "@codemirror/lint": "^6.9.7",
+    "@codemirror/view": "^6.43.15",
+    "@ritchieking/react-vega": "file:vendor/ritchieking-react-vega-8.1.0-theme.0.tgz",
     "@uiw/codemirror-theme-github": "^4.25.12",
     "@uiw/react-codemirror": "^4.25.12",
     "react": "^19.3.1",
