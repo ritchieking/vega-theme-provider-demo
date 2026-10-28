@@ -37,9 +37,11 @@ useVegaTheme(): { config: Config; options: Omit<EmbedOptions, "config">; variant
 Lowest to highest priority:
 
 1. Outer provider's themes (array order), then its active variant layer(s)
-2. Each inner provider's themes, then its variant (unless `inherit={false}`, which ignores the parent theme and variant)
+2. Each inner provider's themes, then its variant (unless `inherit={false}`, which ignores the parent's themes; the variant still flows down unless the inner provider sets one)
 3. The chart's own `options` prop (`options.config` deep-merges into config)
 4. The spec's own `config` (handled by vega-embed)
+
+The active variant applies to the themes of every enclosing provider, so `<VegaThemeProvider variant="dark">` with no `theme` flips one section to the outer theme's dark variant.
 
 Plain objects deep-merge; arrays and other values replace; `undefined` never overwrites. A theme or variant change re-embeds the charts.
 

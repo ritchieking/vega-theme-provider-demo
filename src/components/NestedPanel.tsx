@@ -25,7 +25,7 @@ export function NestedPanel(props: {
           <span className="switch__track" aria-hidden="true" />
           <span className="switch__label">
             <code>inherit={`{${inherit}}`}</code>
-            <small>{inherit ? "Merges over the page theme" : "Clean slate: page theme and variant ignored"}</small>
+            <small>{inherit ? "Merges over the page theme" : "Clean slate: page theme ignored"}</small>
           </span>
         </label>
       </header>
