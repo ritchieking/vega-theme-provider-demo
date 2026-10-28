@@ -146,7 +146,7 @@ export const donutSpec = (width: number): VisualizationSpec => ({
     },
     { name: "total", source: "cars", transform: [{ type: "aggregate", as: ["n"] }] },
   ],
-  scales: [{ name: "color", type: "ordinal", domain: { data: "byOrigin", field: "origin" }, range: "category" }],
+  scales: [{ name: "color", type: "ordinal", domain: { data: "byOrigin", field: "origin", sort: true }, range: "category" }],
   legends: [{ fill: "color" }],
   marks: [
     {
