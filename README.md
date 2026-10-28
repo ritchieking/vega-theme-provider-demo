@@ -5,6 +5,11 @@ A live demo of `VegaThemeProvider`, the theming layer added in the `theme-provid
 
 ## What it shows
 
+The site has two pages:
+
+- **Playground** (`index.html`): the interactive demo described below.
+- **Before & after** (`compare/index.html`): five common theming tasks written for react-vega 8 next to the same code with `VegaThemeProvider`, plus a live pair of charts showing how a shallow config spread drops nested settings that a nested provider keeps.
+
 - **Light / Dark / Auto** control driving the provider's `variant` (`"auto"` follows `prefers-color-scheme`). The page chrome switches too.
 - **Theme editor** (CodeMirror 6) holding the provider's `theme` as JSON, including `variants.light` / `variants.dark`. JSON and shape errors show inline; the charts stay on the last valid theme. If Vega itself rejects a config (for example an unknown color scheme) the demo falls back to the last theme that rendered.
 - **CSS-variable controls**: pickers and sliders for `--chart-accent`, `--chart-highlight`, `--chart-text`, `--chart-muted`, `--chart-grid`, `--chart-bg`, `--chart-font`, `--chart-font-size`, `--chart-line-width`, `--chart-bar-radius`.

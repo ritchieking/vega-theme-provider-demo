@@ -4,9 +4,10 @@ import { resolveCssVariables } from "./resolveCssVariables";
 import { parseTheme } from "./validateTheme";
 import { NESTED_THEME, PRESETS, type RawTheme } from "./presets";
 import { SHARED_TOKENS, type Scheme, type TokenName, type Tokens } from "./tokens";
-import { LINKS, hasUpstreamPr } from "./links";
+import { LINKS } from "./links";
 import { ThemeStatusContext } from "./ThemeStatus";
-import { Segmented } from "./components/Segmented";
+import { SiteHeader, type Mode } from "./components/SiteHeader";
+import { useSystemDark } from "./useSystemDark";
 import { TokenControls } from "./components/TokenControls";
 import { ThemeEditor } from "./components/ThemeEditor";
 import { Gallery } from "./components/Gallery";
@@ -14,23 +15,11 @@ import { NestedPanel } from "./components/NestedPanel";
 import { ThemeProbe } from "./components/ThemeProbe";
 import { CodePanel } from "./components/CodePanel";
 
-type Mode = "light" | "dark" | "auto";
 type Applied = { id: number; theme: VegaTheme; nested: VegaTheme; variant: Mode };
 
-const DARK_QUERY = "(prefers-color-scheme: dark)";
 const DEBOUNCE_MS = 120;
 const pretty = (t: RawTheme) => JSON.stringify(t, null, 2);
 
-function useSystemDark() {
-  const [dark, setDark] = useState(() => window.matchMedia(DARK_QUERY).matches);
-  useEffect(() => {
-    const mq = window.matchMedia(DARK_QUERY);
-    const on = () => setDark(mq.matches);
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  return dark;
-}
 
 export function App() {
   const systemDark = useSystemDark();
@@ -139,41 +128,7 @@ export function App() {
 
   return (
     <>
-      <header className="topbar">
-        <div className="topbar__inner">
-          <a className="brand" href="#top" aria-label="VegaThemeProvider demo">
-            <span className="brand__mark" aria-hidden="true">
-              <i /><i /><i />
-            </span>
-            <span>VegaThemeProvider</span>
-          </a>
-          <nav className="links" aria-label="Project links">
-            <a href={LINKS.fork} target="_blank" rel="noreferrer">
-              Fork branch
-            </a>
-            {hasUpstreamPr ? (
-              <a href={LINKS.upstreamPr} target="_blank" rel="noreferrer">
-                Upstream PR
-              </a>
-            ) : (
-              <span className="links__pending" title="The upstream pull request has not been opened yet">
-                Upstream PR (pending)
-              </span>
-            )}
-          </nav>
-          <Segmented
-            className="topbar__mode"
-            label="Color scheme"
-            value={mode}
-            onChange={setMode}
-            options={[
-              { value: "light", label: "Light" },
-              { value: "dark", label: "Dark" },
-              { value: "auto", label: "Auto" },
-            ]}
-          />
-        </div>
-      </header>
+      <SiteHeader page="playground" mode={mode} onMode={setMode} />
 
       <main id="top" className="page">
         <section className="intro">

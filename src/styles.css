@@ -193,3 +193,30 @@ button, select, input { font: inherit; color: inherit; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 .editor__bar .btn { white-space: nowrap; flex: none; }
+
+/* ---------- page nav ---------- */
+.pages { display: flex; gap: 4px; font-size: 14px; }
+.pages a { color: var(--chart-muted); text-decoration: none; padding: 4px 10px; border-radius: 999px; }
+.pages a:hover { color: var(--chart-text); }
+.pages a[aria-current="page"] { color: var(--chart-text); background: color-mix(in srgb, var(--chart-text) 8%, transparent); font-weight: 600; }
+
+/* ---------- before & after page ---------- */
+.toc { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 18px; font-size: 14px; }
+.toc a { color: var(--chart-text); text-decoration-color: var(--chart-grid); }
+.toc a:hover { text-decoration-color: var(--chart-accent); }
+.compare__list { display: flex; flex-direction: column; gap: 24px; }
+.compare__section { scroll-margin-top: 72px; }
+.compare__section + .compare__section, .compare__list + .compare__section { margin-top: 24px; }
+.compare__section h2 { font-size: 20px; margin-bottom: 6px; }
+.compare__intro { color: var(--chart-muted); max-width: 760px; margin-bottom: 16px; text-wrap: pretty; }
+.pair { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (min-width: 900px) { .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.pair__col { min-width: 0; }
+.pair__label { font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--chart-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.pair__label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--chart-grid); }
+.pair__label[data-kind="after"]::before { background: var(--chart-accent); }
+.pair--live { margin-top: 16px; }
+.pair--live .card { background: var(--page-bg); }
+.pair__note { grid-column: 1 / -1; margin-top: 0; }
+.compare__bullets { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 6px; max-width: 760px; }
+@media (max-width: 760px) { .pages { order: 3; } }
