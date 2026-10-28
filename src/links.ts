@@ -3,6 +3,8 @@
 export const LINKS = {
   /** The fork branch that contains VegaThemeProvider. */
   fork: "https://github.com/ritchieking/react-vega/tree/theme-provider",
+  /** The published prerelease on npm. */
+  npm: "https://www.npmjs.com/package/@ritchieking/react-vega",
   /** Upstream react-vega repository. */
   upstream: "https://github.com/vega/react-vega",
   /**

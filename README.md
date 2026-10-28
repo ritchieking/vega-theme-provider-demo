@@ -66,8 +66,11 @@ npm run build              # tsc + vite build into dist/
 
 ## Library installation
 
-The library is currently vendored as a tarball: `"@ritchieking/react-vega": "file:vendor/ritchieking-react-vega-8.1.0-theme.0.tgz"`.
-Once it is published to npm, replace it with `@ritchieking/react-vega@next` (`npm i @ritchieking/react-vega@next`) and delete `vendor/`.
+The demo installs the published prerelease, [`@ritchieking/react-vega@next`](https://www.npmjs.com/package/@ritchieking/react-vega), which is react-vega 8 plus `VegaThemeProvider`, built from the `demo-release` branch of the fork. To try it in your own project:
+
+```sh
+npm i @ritchieking/react-vega@next vega-embed vega-lite
+```
 
 ## Deploy
 

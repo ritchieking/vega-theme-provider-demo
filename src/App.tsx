@@ -243,6 +243,10 @@ export function App() {
               Source branch
             </a>
             {" · "}
+            <a href={LINKS.npm} target="_blank" rel="noreferrer">
+              npm
+            </a>
+            {" · "}
             <a href={LINKS.upstream} target="_blank" rel="noreferrer">
               Upstream react-vega
             </a>
