@@ -123,6 +123,26 @@ const highContrast: RawTheme = {
   },
 };
 
+/**
+ * Built on vega-themes by name: fivethirtyeight in light mode, dark in dark mode.
+ * vega-embed applies the named theme underneath everything else, so the token-driven
+ * settings below (font, type size, text color) apply on top of whichever is active.
+ */
+const fivethirtyeight: RawTheme = {
+  config: {
+    font: "var(--chart-font)",
+    axis: { labelFontSize: fontSize, titleFontSize: fontSize },
+    legend: { labelFontSize: fontSize, titleFontSize: fontSize, labelColor: "var(--chart-text)", titleColor: "var(--chart-text)" },
+    header: { labelColor: "var(--chart-text)", titleColor: "var(--chart-text)" },
+    text: { color: "var(--chart-text)", fill: "var(--chart-text)", fontSize },
+  },
+  options: { renderer: "svg", actions: false },
+  variants: {
+    light: { options: { theme: "fivethirtyeight", tooltip: { theme: "light" } } },
+    dark: { options: { theme: "dark", tooltip: { theme: "dark" } } },
+  },
+};
+
 const print: RawTheme = {
   config: {
     ...brand.config,
@@ -232,6 +252,16 @@ export const PRESETS: Preset[] = [
       },
     ),
   },
+  {
+    id: "fivethirtyeight",
+    name: "FiveThirtyEight",
+    blurb: "Built on vega-themes: fivethirtyeight in light mode, dark in dark mode, with your font and type size on top.",
+    theme: fivethirtyeight,
+    tokens: tokens(
+      { "--chart-accent": "#008fd5", "--chart-highlight": "#fc4f30", "--chart-text": "#222222", "--chart-muted": "#6b6b6b", "--chart-grid": "#cbcbcb", "--chart-bg": "#f0f0f0", "--chart-font-size": "11" },
+      { "--chart-accent": "#6fb9e6", "--chart-highlight": "#fc7a5e", "--chart-text": "#ffffff", "--chart-muted": "#bbbbbb", "--chart-grid": "#555555", "--chart-bg": "#333333", "--chart-font-size": "11" },
+    ),
+  },
 ];
 
 /**
@@ -243,8 +273,10 @@ export const NESTED_THEME: RawTheme = {
   config: {
     padding: { left: 2, right: 8, top: 6, bottom: 4 },
     legend: { disable: true },
-    line: { color: "var(--chart-muted)", strokeWidth: 1.75 },
-    bar: { color: "var(--chart-muted)", fillOpacity: 0.4 },
+    // fill and stroke as well as color: some themes (fivethirtyeight, for one) set
+    // fill/stroke on marks, and those take precedence over color in Vega-Lite.
+    line: { color: "var(--chart-muted)", stroke: "var(--chart-muted)", strokeWidth: 1.75 },
+    bar: { color: "var(--chart-muted)", fill: "var(--chart-muted)", fillOpacity: 0.4 },
     style: {
       highlight: { color: "var(--chart-highlight)", fill: "var(--chart-highlight)", fillOpacity: 1, opacity: 1 },
     },

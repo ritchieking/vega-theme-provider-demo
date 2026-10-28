@@ -92,6 +92,38 @@ export function RevenueChart() {
 <VegaThemeProvider theme={brand} variant={isDark ? "dark" : "light"}>`,
   },
   {
+    id: "vega-themes",
+    title: "Different vega-themes for light and dark",
+    intro:
+      "vega-themes ships complete configs such as fivethirtyeight, quartz and IBM's Carbon set. vega-embed can apply one by name to a single chart. A provider can name one per variant for the whole tree, and the rest of its theme still applies on top of whichever is active.",
+    before: `export function RevenueChart() {
+  const dark = useDarkMode();
+  return (
+    <VegaEmbed
+      spec={revenueSpec}
+      options={{
+        theme: dark ? "carbong100" : "carbonwhite",
+        config: brandTweaks,
+      }}
+    />
+  );
+}
+
+// Every chart repeats the hook, the two theme names
+// and the tweaks.`,
+    after: `const carbon = {
+  config: brandTweaks, // applied on top of either theme
+  variants: {
+    light: { options: { theme: "carbonwhite" } },
+    dark: { options: { theme: "carbong100" } },
+  },
+};
+
+<VegaThemeProvider theme={carbon} variant="auto">
+  <Dashboard />
+</VegaThemeProvider>`,
+  },
+  {
     id: "override",
     title: "Override part of the theme",
     intro:

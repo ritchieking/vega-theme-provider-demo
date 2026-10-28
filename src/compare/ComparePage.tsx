@@ -3,16 +3,32 @@ import { VegaEmbed, VegaThemeProvider, useVegaTheme, type VegaTheme } from "@rit
 import type { EmbedOptions } from "vega-embed";
 import { resolveCssVariables } from "../resolveCssVariables";
 import { PRESETS } from "../presets";
-import { barSpec } from "../specs";
+import { barSpec, scatterSpec } from "../specs";
 import { LINKS } from "../links";
 import type { Scheme } from "../tokens";
 import { useSystemDark } from "../useSystemDark";
 import { SiteHeader, type Mode } from "../components/SiteHeader";
 import { CodeBlock } from "../components/CodeBlock";
 import { EXAMPLES, UNCHANGED, type Example } from "./examples";
+import { carbong100, carbonwhite } from "vega-themes";
 
 const BRAND = PRESETS[0];
 const SMALL_LABELS: VegaTheme = { config: { axis: { labelFontSize: 9 } } };
+
+/** The "after" code from the vega-themes example. The tweak: no gridlines, which Carbon draws. */
+const CARBON: VegaTheme = {
+  config: { axis: { grid: false } },
+  options: { actions: false },
+  variants: {
+    light: { options: { theme: "carbonwhite" } },
+    dark: { options: { theme: "carbong100" } },
+  },
+};
+
+const CARBON_SURFACES = {
+  light: { background: String(carbonwhite.background), color: "#161616" },
+  dark: { background: String(carbong100.background), color: "#f4f4f4" },
+} as const;
 
 export function ComparePage() {
   const systemDark = useSystemDark();
@@ -55,6 +71,7 @@ export function ComparePage() {
               {EXAMPLES.map((example) => (
                 <ExampleSection key={example.id} example={example} scheme={scheme}>
                   {example.id === "override" && <OverrideLive />}
+                  {example.id === "vega-themes" && <VegaThemesLive />}
                 </ExampleSection>
               ))}
             </div>
@@ -144,6 +161,27 @@ function OverrideLive() {
         </VegaThemeProvider>
       </figure>
       <p className="card__note pair__note">Easiest to see in dark mode, where Vega&rsquo;s default black labels disappear into the background.</p>
+    </div>
+  );
+}
+
+/** Both variants of the Carbon theme at once, each in its own provider with a fixed variant. */
+function VegaThemesLive() {
+  return (
+    <div className="pair pair--live">
+      {(["light", "dark"] as const).map((variant) => (
+        <figure key={variant} className="card card--themed" style={CARBON_SURFACES[variant]}>
+          <figcaption>
+            <span className="card__kicker">variant=&quot;{variant}&quot;</span>
+            <h3>{variant === "light" ? "carbonwhite" : "carbong100"}</h3>
+          </figcaption>
+          {/* inherit={false}: only the Carbon theme, without this page's own theme. */}
+          <VegaThemeProvider theme={CARBON} variant={variant} inherit={false}>
+            <VegaEmbed spec={scatterSpec} className="chart__embed" aria-label={`Scatter plot with the ${variant} Carbon theme`} />
+          </VegaThemeProvider>
+        </figure>
+      ))}
+      <p className="card__note pair__note">The same chart and the same theme object in both variants. Each named theme brings its own background, text colors and palette. The tweak, <code>axis: {"{ grid: false }"}</code>, removes the gridlines Carbon draws in both.</p>
     </div>
   );
 }
