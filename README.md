@@ -7,8 +7,10 @@ A live demo of `VegaThemeProvider`, the theming layer added in the `theme-provid
 
 The site has two pages:
 
-- **Playground** (`index.html`): the interactive demo described below.
-- **Before & after** (`compare/index.html`): five common theming tasks written for react-vega 8 next to the same code with `VegaThemeProvider`, plus a live pair of charts showing how a shallow config spread drops nested settings that a nested provider keeps.
+- **API reference** (`index.html`, the landing page): typed definitions for `VegaThemeProvider` and `useVegaTheme`, the merge order, and four short examples that compare react-vega 8 with the provider, two of them rendered live.
+- **Playground** (`playground/index.html`): the interactive demo described below.
+
+The playground has:
 
 - **Light / Dark / Auto** control driving the provider's `variant` (`"auto"` follows `prefers-color-scheme`). The page chrome switches too.
 - **Theme editor** (CodeMirror 6) holding the provider's `theme` as JSON, including `variants.light` / `variants.dark`. JSON and shape errors show inline; the charts stay on the last valid theme. If Vega itself rejects a config (for example an unknown color scheme) the demo falls back to the last theme that rendered.
@@ -64,7 +66,7 @@ All external URLs live in `src/links.ts`.
 ## Run locally
 
 ```sh
-npm ci && npm run dev      # http://127.0.0.1:5173
+npm ci && npm run dev      # http://127.0.0.1:5173 (API) and /playground/
 npm test                   # Vitest (resolveCssVariables)
 npm run build              # tsc + vite build into dist/
 ```

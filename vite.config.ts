@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     chunkSizeWarningLimit: 4000,
-    // Two pages: the playground and the before/after comparison.
-    rollupOptions: { input: { main: "index.html", compare: "compare/index.html" } },
+    // Two pages: the API reference (landing page) and the playground.
+    rollupOptions: { input: { main: "index.html", playground: "playground/index.html" } },
   },
 });

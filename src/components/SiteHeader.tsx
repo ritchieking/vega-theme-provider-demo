@@ -2,12 +2,12 @@ import { LINKS, hasUpstreamPr } from "../links";
 import { Segmented } from "./Segmented";
 
 export type Mode = "light" | "dark" | "auto";
-type Page = "playground" | "compare";
+type Page = "api" | "playground";
 
 /** Pages are siblings under the same base, so links are relative to the current page. */
 const HREFS: Record<Page, Record<Page, string>> = {
-  playground: { playground: "./", compare: "compare/" },
-  compare: { playground: "../", compare: "./" },
+  api: { api: "./", playground: "playground/" },
+  playground: { api: "../", playground: "./" },
 };
 
 export function SiteHeader(props: { page: Page; mode: Mode; onMode: (mode: Mode) => void }) {
@@ -16,7 +16,7 @@ export function SiteHeader(props: { page: Page; mode: Mode; onMode: (mode: Mode)
   return (
     <header className="topbar">
       <div className="topbar__inner">
-        <a className="brand" href={href.playground} aria-label="VegaThemeProvider demo home">
+        <a className="brand" href={href.api} aria-label="VegaThemeProvider API reference">
           <span className="brand__mark" aria-hidden="true">
             <i />
             <i />
@@ -25,11 +25,11 @@ export function SiteHeader(props: { page: Page; mode: Mode; onMode: (mode: Mode)
           <span>VegaThemeProvider</span>
         </a>
         <nav className="pages" aria-label="Pages">
+          <a href={href.api} aria-current={page === "api" ? "page" : undefined}>
+            API
+          </a>
           <a href={href.playground} aria-current={page === "playground" ? "page" : undefined}>
             Playground
-          </a>
-          <a href={href.compare} aria-current={page === "compare" ? "page" : undefined}>
-            Before &amp; after
           </a>
         </nav>
         <nav className="links" aria-label="Project links">
