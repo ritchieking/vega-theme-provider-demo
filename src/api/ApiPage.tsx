@@ -73,8 +73,8 @@ export function ApiPage() {
           <p className="eyebrow">react-vega · theme-provider</p>
           <h1>VegaThemeProvider</h1>
           <p className="lede">
-            Sets a Vega and Vega-Lite theme for a React tree. Every <code>&lt;VegaEmbed&gt;</code> and <code>useVegaEmbed</code> below
-            the provider receives its config and embed options, with named variants such as light and dark, and nested overrides.
+            Sets a top-level Vega or Vega-Lite theme for a React app. Every <code>&lt;VegaEmbed&gt;</code> and <code>useVegaEmbed</code> nested within
+            the provider receives the same styling and options, with light and dark variants, and easy overrides.
           </p>
           <div className="docs__install">
             <CodeBlock code={INSTALL} scheme={scheme} label="Install" language="shell" />

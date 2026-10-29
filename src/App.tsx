@@ -133,10 +133,10 @@ export function App() {
       <main id="top" className="page">
         <section className="intro">
           <p className="eyebrow">react-vega · theme-provider branch</p>
-          <h1>One theme for every Vega chart in the tree.</h1>
+          <h1>One theme for every Vega chart in a React app.</h1>
           <p className="lede">
-            <code>{"<VegaThemeProvider>"}</code> merges a Vega config and embed options into every <code>{"<VegaEmbed>"}</code> below it, with light and
-            dark variants and nesting. Edit the theme, drag a token, flip the color scheme, and watch six charts follow. The specs set no colors or fonts.
+            <code>{"<VegaThemeProvider>"}</code> merges a Vega config and embed options into every <code>{"<VegaEmbed>"}</code> nested within it, with light and
+            dark variants and easy overrides. Try editing the theme and tweaking specific styles below.
           </p>
         </section>
 
